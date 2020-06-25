@@ -16,8 +16,3 @@ variable "dbuid" {
 variable "dbpassword" {
     description = "Password for mongo and SQL Server dbs"
 }
-
-variable "repourl" {
-    description = "Url of the Git Repo used for CI"
-    default = "https://github.com/OmegaMadLab/AzureEats-Website"
-}

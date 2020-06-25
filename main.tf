@@ -50,18 +50,6 @@ module "webapp" {
   mongoconnstr = module.mongodb.mongoconnstr
 }
 
-# Auto deployment configuration
-resource "null_resource" "azure-cli" {
 
-  provisioner "local-exec" {
-      command = "az webapp deployment source config --branch master --name $webappname --repo-url $repourl --resource-group $resourcegroup"
-
-      environment = {
-          webappname    = module.webapp.webappname
-          resourcegroup = azurerm_resource_group.rg.name
-          repourl       = var.repourl
-      }
-  }
-}
 
 

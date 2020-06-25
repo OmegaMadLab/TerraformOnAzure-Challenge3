@@ -53,8 +53,8 @@ jobs:
     - name: TfOut1
       id: tfout1
       run: |
-              RGNAME = ${{ steps.get-rgname.outputs.stdout }}
-              WEBAPPNAME = ${{ steps.get-webappname.outputs.stdout }}
+              RGNAME = ${{ steps.get-rgname.outcome }}
+              WEBAPPNAME = ${{ steps.get-webappname.outcome }}
               echo $RGNAME, $WEBAPPNAME
       
            

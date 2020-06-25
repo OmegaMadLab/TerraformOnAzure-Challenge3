@@ -42,6 +42,8 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
             terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
+            terraform output rgname
+            terraform output webappname
             RGNAME=$(terraform output rgname)
             WEBAPPNAME=$(terraform output webappname)
             echo $RGNAME

@@ -57,5 +57,6 @@ jobs:
         inlineScript: |
             RGNAME=${{ steps.get-rgname.outputs.stdout }}
             WEBAPPNAME=${{ steps.get-webappname.outputs.stdout }}
+            echo $REPOURL
             az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME
       

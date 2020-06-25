@@ -6,7 +6,8 @@ env:
   ARM_CLIENT_SECRET: ${{  secrets.ARM_CLIENT_SECRET  }}
   ARM_SUBSCRIPTION_ID: ${{  secrets.ARM_SUBSCRIPTION_ID  }}
   ARM_TENANT_ID: ${{  secrets.ARM_TENANT_ID  }}
-  DB_PWD: ${{ secrets.DB_PWD }} 
+  DB_PWD: ${{ secrets.DB_PWD }}
+  REPOURL: 'https://github.com/OmegaMadLab/AzureEats-Website'
 
 jobs:
   terraform:
@@ -37,4 +38,14 @@ jobs:
     
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
+      run: |
+            terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
+            $RGNAME=terraform output rgname
+            echo "::set-env name=RGNAME::$RGNAME"
+            $WEBAPPNAME=terraform output webappname
+            echo "::set-env name=WEBAPPNAME::$WEBAPPNAME"
+            
+    - name: AzCli configure CI
+      run: az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME
+    
+

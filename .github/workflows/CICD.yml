@@ -14,9 +14,9 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
-    outputs:
-      rgname:     ${{ steps.tfapply.outputs.rgname }}
-      webappname: ${{ steps.tfapply.outputs.webappname }}
+#    outputs:
+#      rgname:     ${{ steps.tfapply.outputs.rgname }}
+#      webappname: ${{ steps.tfapply.outputs.webappname }}
 
     defaults:
       run:
@@ -40,25 +40,41 @@ jobs:
     - name: Terraform Apply
       id: tfapply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
+           
+    - name: Get output rgname
+      id: get-rgname
+      run: terraform terraform output -no-color rgname
+
+    - name: Get output webappname
+      id: get-webappname
+      run: terraform terraform output -no-color webappname
+    
+    - name: TfOut1
+      id: tfout1
       run: |
-            terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
-            terraform output -no-color rgname
-            terraform output -no-color webappname
-            RGNAME=$(terraform output -no-color rgname)
-            WEBAPPNAME=$(terraform output -no-color webappname)
-            echo $RGNAME
-            echo $WEBAPPNAME 
-            echo ::set-output name=rgname::$RGNAME
-            echo ::set-output name=webappname::$WEBAPPNAME
+              RGNAME = ${{ steps.get-rgname.outputs.stdout }}
+              WEBAPPNAME = ${{ steps.get-webappname.outputs.stdout }}
+              echo $RGNAME, $WEBAPPNAME
+      
+           
+#           terraform output -no-color rgname
+#            terraform output -no-color webappname
+#            RGNAME=$(terraform output -no-color rgname)
+#            WEBAPPNAME=$(terraform output -no-color webappname)
+#            echo $RGNAME
+#            echo $WEBAPPNAME 
+#            echo ::set-output name=rgname::$RGNAME
+#            echo ::set-output name=webappname::$WEBAPPNAME
         
     
   
-  deploy:
-    name: 'Deploy'
-    runs-on: ubuntu-latest
-    needs: terraform
+#  deploy:
+#    name: 'Deploy'
+#    runs-on: ubuntu-latest
+#    needs: terraform
     
-    steps:
+#    steps:
     #- name: Login to AZ CLI
     #  uses: azure/login@v1.1
     #  with:
@@ -67,8 +83,8 @@ jobs:
     #- name: AzCli configure CI
     #  run: az webapp deployment source config --branch master --name ${{needs.terraform.outputs.webappname}} --repo-url $REPOURL --resource-group ${{needs.terraform.outputs.rgname}}
 
-    - name: test out
-      run: |
-            echo ${{needs.terraform.outputs.webappname}}
-            echo ${{needs.terraform.outputs.rgname}}
-            echo $REPOURL
+#    - name: test out
+#      run: |
+#            echo ${{needs.terraform.outputs.webappname}}
+#            echo ${{needs.terraform.outputs.rgname}}
+#            echo $REPOURL

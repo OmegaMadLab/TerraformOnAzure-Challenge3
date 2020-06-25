@@ -44,8 +44,8 @@ jobs:
             terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
             terraform output rgname
             terraform output webappname
-            RGNAME=$(terraform output rgname)
-            WEBAPPNAME=$(terraform output webappname)
+            RGNAME=$(terraform output rgname -no-color)
+            WEBAPPNAME=$(terraform output webappname -no-color)
             echo $RGNAME
             echo $WEBAPPNAME 
             echo ::set-output name=rgname::$RGNAME

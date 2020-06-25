@@ -53,6 +53,7 @@ jobs:
         
     - name: AzCli configure CI
       run: |
+              az account list
               RGNAME=${{ steps.get-rgname.outputs.stdout }}
               WEBAPPNAME=${{ steps.get-webappname.outputs.stdout }}
               az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME

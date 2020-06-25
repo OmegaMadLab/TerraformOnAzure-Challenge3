@@ -44,11 +44,11 @@ jobs:
            
     - name: Get output rgname
       id: get-rgname
-      run: terraform terraform output -no-color rgname
+      run: terraform output -no-color rgname
 
     - name: Get output webappname
       id: get-webappname
-      run: terraform terraform output -no-color webappname
+      run: terraform output -no-color webappname
     
     - name: TfOut1
       id: tfout1

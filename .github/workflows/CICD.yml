@@ -40,9 +40,9 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
             terraform apply -var 'dbpassword=${{ secrets.DB_PWD }}' -auto-approve
-            $RGNAME=terraform output rgname
+            RGNAME=$(terraform output rgname)
             echo "::set-env name=RGNAME::$RGNAME"
-            $WEBAPPNAME=terraform output webappname
+            WEBAPPNAME=$(terraform output webappname)
             echo "::set-env name=WEBAPPNAME::$WEBAPPNAME"
             
     - name: AzCli configure CI

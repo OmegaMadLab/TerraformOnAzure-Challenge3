@@ -12,4 +12,3 @@ I used **setup.ps1** to:
 Then, I saved them as environment variables in GitHub Actions, and setup a YAML pipeline to deploy the TF infrastructure.
 
 You can find setup.ps1 in the */setup folder*, while the YAML pipeline is in *.github/workflows/*.  
-

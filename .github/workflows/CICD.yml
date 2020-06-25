@@ -52,7 +52,7 @@ jobs:
       run: terraform output -no-color webappname
       
     - name: Azure CLI Action
-      uses: azure/cli@v1.1
+      uses: azure/cli@v1.0
       with:
         inlineScript: |
             az account list

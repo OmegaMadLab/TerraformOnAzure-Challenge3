@@ -28,6 +28,8 @@ jobs:
       
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.27
 
     - name: Terraform Init
       run: terraform init
@@ -49,11 +51,16 @@ jobs:
     needs: terraform
     
     steps:
-    - name: Login to AZ CLI
-      uses: azure/login@v1.1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    #- name: Login to AZ CLI
+    #  uses: azure/login@v1.1
+    #  with:
+    #    creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: AzCli configure CI
-      run: az webapp deployment source config --branch master --name ${{needs.terraform.outputs.webappname}} --repo-url $REPOURL --resource-group ${{needs.terraform.outputs.rgname}}
+    #- name: AzCli configure CI
+    #  run: az webapp deployment source config --branch master --name ${{needs.terraform.outputs.webappname}} --repo-url $REPOURL --resource-group ${{needs.terraform.outputs.rgname}}
 
+    - name: test out
+      run: |
+            echo ${{needs.terraform.outputs.webappname}}
+            echo ${{needs.terraform.outputs.rgname}}
+            echo $REPOURL

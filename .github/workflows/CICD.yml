@@ -55,7 +55,6 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az account list
             RGNAME=${{ steps.get-rgname.outputs.stdout }}
             WEBAPPNAME=${{ steps.get-webappname.outputs.stdout }}
             az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME

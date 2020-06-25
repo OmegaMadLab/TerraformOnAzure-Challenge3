@@ -50,10 +50,13 @@ jobs:
     - name: Get output webappname
       id: get-webappname
       run: terraform output -no-color webappname
-        
-    - name: AzCli configure CI
-      run: |
-              az account list
-              RGNAME=${{ steps.get-rgname.outputs.stdout }}
-              WEBAPPNAME=${{ steps.get-webappname.outputs.stdout }}
-              az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME
+      
+    - name: Azure CLI Action
+      uses: azure/cli@v1.1
+      with:
+        inlineScript: |
+            az account list
+            RGNAME=${{ steps.get-rgname.outputs.stdout }}
+            WEBAPPNAME=${{ steps.get-webappname.outputs.stdout }}
+            az webapp deployment source config --branch master --name $WEBAPPNAME --repo-url $REPOURL --resource-group $RGNAME
+      

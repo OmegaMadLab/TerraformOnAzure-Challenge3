@@ -11,4 +11,10 @@ I used **init.sh** to:
 
 Then, I saved them as environment variables in GitHub Actions, and setup a YAML pipeline to deploy the TF infrastructure.
 
-You can find init.sh in the */setup folder*, while the YAML pipeline is in *.github/workflows/*.  
+You can find init.sh in the */setup folder*, while the YAML pipeline is in *.github/workflows/*.
+
+My other repos, on for each challenge:
++ [Challenge 1](https://github.com/OmegaMadLab/TerraformOnAzure-Challenge1)
++ [Challenge 2](https://github.com/OmegaMadLab/TerraformOnAzure-Challenge2)
++ [Challenge 4](https://github.com/OmegaMadLab/TerraformOnAzure-Challenge4)
++ [Challenge 5](https://github.com/OmegaMadLab/TerraformOnAzure-Challenge5)
